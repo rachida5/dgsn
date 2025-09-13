@@ -12,9 +12,8 @@ __all__ = ["load_css", "show_running_ui", "app_header", "login_page", "main_page
 
 
 def login_page() -> None:
-    st.markdown('<div class="app-center login-page"><div class="login-card">', unsafe_allow_html=True)
     st.image("logo.png", width=80)
-    st.markdown('<h2 class="login-title">Connexion</h2>', unsafe_allow_html=True)
+    st.title("Connexion")
     with st.form("login_form", clear_on_submit=False):
         username = st.text_input("Nom d'utilisateur")
         password = st.text_input("Mot de passe", type="password")
@@ -30,7 +29,6 @@ def login_page() -> None:
             st.rerun()
         else:
             st.error("❌ Nom d'utilisateur ou mot de passe incorrect.")
-    st.markdown("</div></div>", unsafe_allow_html=True)
 
 
 def navigate(page_key: str) -> None:

@@ -37,28 +37,6 @@ html, body, [data-testid="stAppViewContainer"] {
   max-width: 1200px;
 }
 
-.app-center {
-  min-height: calc(100vh - 80px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-card {
-  background: var(--brand-surface);
-  padding: 2.5rem 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  width: 100%;
-  max-width: 480px;
-}
-
-.login-title {
-  color: var(--brand-accent);
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
 [data-testid="stSidebar"] {
   background: var(--brand-bg);
 }

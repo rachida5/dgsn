@@ -274,69 +274,6 @@ img:hover {
   background: #1b263b !important;
 }
 
-/* NOUVEAU: Style de la page de connexion bleu */
-.login-page [data-testid="stForm"] {
-  width: 450px;
-  margin: 8vh auto 0 auto;
-  padding: 28px;
-  border-radius: 12px;
-  background: #1b263b;
-  border: 1px solid #415a77;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  color: #e0e0e0;
-}
-
-.login-page h1, .login-page h2, .login-page h3, .login-page p {
-  color: #e0e0e0 !important;
-}
-
-.login-page label p {
-  color: #bdbdbd !important;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.login-page input[type="text"], .login-page input[type="password"] {
-  background: #0d1b2a !important;
-  color: #e0e0e0 !important;
-  border-radius: 8px !important;
-  border: 1px solid #415a77 !important;
-  padding: 12px 16px !important;
-  font-size: 16px !important;
-  font-weight: 500 !important;
-}
-
-.login-page input[type="text"]:focus, .login-page input[type="password"]:focus {
-  border-color: #d32f2f !important;
-  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2) !important;
-  background: #1b263b !important;
-}
-
-.login-page button[kind="primary"] {
-  background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%) !important;
-  border-radius: 8px !important;
-  font-weight: 700 !important;
-  padding: 12px 24px !important;
-  font-size: 16px !important;
-  margin-top: 16px !important;
-  width: 100% !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-
-.login-page button[kind="primary"]:hover {
-  background: linear-gradient(135deg, #b71c1c 0%, #9a0007 100%) !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-}
-
-.login-title {
-  text-align: center;
-  margin: 24px 0 20px 0;
-  color: #d32f2f;
-  font-weight: 800;
-  font-size: 28px;
-}
-
 /* NOUVEAU: Style des conteneurs de résultats de recherche bleu */
 .search-result-container {
   background: #1b263b;
@@ -404,16 +341,6 @@ img:hover {
     height: calc(100vh - 70px);
   }
 
-  .login-page [data-testid="stForm"] {
-    width: 95%;
-    margin-top: 4vh;
-    padding: 20px;
-  }
-
-  .login-title {
-    font-size: 24px;
-    margin: 20px 0 16px 0;
-  }
 
   .step-indicator {
     flex-direction: column;
@@ -450,7 +377,4 @@ img:hover {
     padding-top: 75px;
   }
 
-  .login-page [data-testid="stForm"] {
-    padding: 16px;
-  }
 }
