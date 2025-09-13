@@ -12,35 +12,9 @@ __all__ = ["load_css", "show_running_ui", "app_header", "login_page", "main_page
 
 
 def login_page() -> None:
-    st.markdown(
-        """
-        <style>
-            .login-wrapper {
-                min-height: calc(100vh - 80px);
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-            }
-            .login-card {
-                background: #1b263b;
-                padding: 2rem;
-                border-radius: 8px;
-                width: 100%;
-                max-width: 400px;
-            }
-            .block-container {
-                max-width: 900px;
-                margin: 0 auto;
-            }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.markdown('<div class="login-wrapper">', unsafe_allow_html=True)
-    st.markdown('<div class="login-card">', unsafe_allow_html=True)
-    st.markdown('<h1 class="login-title">🔒 Connexion</h1>', unsafe_allow_html=True)
+    st.markdown('<div class="app-center login-page"><div class="login-card">', unsafe_allow_html=True)
+    st.image("logo.png", width=80)
+    st.markdown('<h2 class="login-title">Connexion</h2>', unsafe_allow_html=True)
     with st.form("login_form", clear_on_submit=False):
         username = st.text_input("Nom d'utilisateur")
         password = st.text_input("Mot de passe", type="password")
@@ -59,38 +33,41 @@ def login_page() -> None:
     st.markdown("</div></div>", unsafe_allow_html=True)
 
 
-def main_page() -> None:
-    st.sidebar.title("📌 Navigation")
+def navigate(page_key: str) -> None:
+    """Met à jour la page active."""
+    st.session_state["active_page"] = page_key
 
+
+def _view_page() -> None:
+    if st.session_state.get("editing_criminal_id") is not None:
+        edit_criminal_page(st.session_state.editing_criminal_id)
+    else:
+        list_criminals_page()
+
+
+def main_page() -> None:
     pages = {
-        "➕ Ajouter": "Ajouter",
-        "🔍 Rechercher": "Rechercher",
-        "📄 Voir": "Voir",
+        "search": {"icon": "🔍", "label": "Recherche", "func": search_criminal_page},
+        "add": {"icon": "➕", "label": "Enregistrement", "func": add_criminal_page},
+        "view": {"icon": "📄", "label": "Rapports", "func": _view_page},
     }
 
-    if "page" not in st.session_state:
-        st.session_state.page = "Rechercher"
+    if "active_page" not in st.session_state:
+        st.session_state["active_page"] = "search"
+
+    st.sidebar.markdown(
+        "<div class='sidebar-header'><img src='logo.png' class='sidebar-logo'><span class='sidebar-title'>DGSN</span></div>",
+        unsafe_allow_html=True,
+    )
 
     choice = st.sidebar.radio(
-        "Changer de page",
+        "Navigation",
         list(pages.keys()),
-        index=list(pages.values()).index(st.session_state.page),
+        index=list(pages.keys()).index(st.session_state["active_page"]),
+        format_func=lambda k: f"{pages[k]['icon']} {pages[k]['label']}",
         label_visibility="collapsed",
     )
-    st.session_state.page = pages[choice]
-
-    if st.session_state.page == "Ajouter":
-        if st.session_state.get("is_admin"):
-            add_criminal_page()
-        else:
-            st.warning("Accès réservé aux administrateurs.")
-    elif st.session_state.page == "Rechercher":
-        search_criminal_page()
-    elif st.session_state.page == "Voir":
-        if "editing_criminal_id" in st.session_state and st.session_state.editing_criminal_id is not None:
-            edit_criminal_page(st.session_state.editing_criminal_id)
-        else:
-            list_criminals_page()
+    navigate(choice)
 
     st.sidebar.markdown("---")
     if st.sidebar.button("Se déconnecter", use_container_width=True):
@@ -99,4 +76,9 @@ def main_page() -> None:
                 del st.session_state[key]
             st.session_state["authenticated"] = False
         st.rerun()
+    st.sidebar.markdown("<div class='sidebar-footer'>v1.0</div>", unsafe_allow_html=True)
+
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
+    pages[st.session_state["active_page"]]["func"]()
+    st.markdown("</div>", unsafe_allow_html=True)
 
