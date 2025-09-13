@@ -1,0 +1,456 @@
+/* Style pour le chip de statut */
+#status-chip {
+  position: fixed;
+  top: 8px;
+  right: 16px;
+  z-index: 10001;
+  display: none;
+}
+#status-chip .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #10b981;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  animation: slideIn 0.3s ease-out;
+}
+#status-chip .spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top: 2px solid #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Cache le header natif Streamlit */
+[data-testid="stHeader"] { display: none; }
+
+/* NOUVEAU: Fond global bleu nuit */
+html, body, [data-testid="stAppViewContainer"] {
+  background: linear-gradient(135deg, #0d1b2a 0%, #000033 100%) !important;
+  color: #e0e0e0;
+  min-height: 100vh;
+}
+
+/* NOUVEAU: Header fixe bleu */
+#fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(135deg, #1b263b 0%, #0d1b2a 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 24px;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  font-weight: 700;
+  font-size: 20px;
+}
+
+/* NOUVEAU: Sidebar bleue */
+[data-testid="stSidebar"] {
+  top: 80px;
+  height: calc(100vh - 80px);
+  background: linear-gradient(135deg, #0d1b2a 0%, #000033 100%) !important;
+}
+
+[data-testid="stSidebar"] > div:first-child {
+  background: linear-gradient(135deg, #0d1b2a 0%, #000033 100%) !important;
+}
+
+/* NOUVEAU: Style des boutons de navigation de la sidebar */
+[data-testid="stSidebar"] .stButton > button {
+  background: #1b263b !important;
+  color: #e0e0e0 !important;
+  border: 1px solid #415a77 !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  text-align: left;
+  padding: 12px 16px !important;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+[data-testid="stSidebar"] .stButton > button:hover {
+  background: #415a77 !important;
+  border-color: #778da9 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transform: none; /* Annule le transform des boutons primaires */
+}
+
+[data-testid="stSidebar"] .stButton > button:focus {
+  background: #d32f2f !important;
+  color: white !important;
+  border-color: #b71c1c !important;
+}
+
+[data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
+  color: #d32f2f !important;
+}
+
+/* Flèche de la sidebar */
+[data-testid="stSidebar"] [data-testid="collapsedControl"] {
+  position: absolute !important;
+  bottom: 12px !important;
+  left: 12px !important;
+  background: #d32f2f !important;
+  border-radius: 50% !important;
+  padding: 8px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+[data-testid="stSidebar"] [data-testid="collapsedControl"]:hover {
+  background: #b71c1c !important;
+  transform: scale(1.05);
+}
+
+/* NOUVEAU: Style des formulaires bleu */
+[data-testid="stForm"] {
+  background: #1b263b !important;
+  border: 1px solid #415a77 !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* NOUVEAU: Style des inputs bleu */
+input[type="text"], input[type="password"], input[type="number"], textarea, .stDateInput input {
+  background: #0d1b2a !important;
+  color: #e0e0e0 !important;
+  border: 1px solid #415a77 !important;
+  border-radius: 8px !important;
+  padding: 10px 14px !important;
+  font-weight: 500 !important;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="number"]:focus, textarea:focus, .stDateInput input:focus {
+  border-color: #d32f2f !important;
+  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2) !important;
+  background: #1b263b !important;
+}
+
+/* Style des boutons primaires */
+button[kind="primary"], .stButton > button[kind="primary"] {
+  background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 10px 20px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+button[kind="primary"]:hover, .stButton > button[kind="primary"]:hover {
+  background: linear-gradient(135deg, #b71c1c 0%, #9a0007 100%) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* Bouton d'exportation PDF */
+button[kind="primary"][data-testid*="export_pdf_"] {
+  background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%) !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
+  padding: 8px 16px !important;
+  font-weight: 600 !important;
+  margin-top: 10px;
+  display: block;
+}
+
+button[kind="primary"][data-testid*="export_pdf_"]:hover {
+  background: linear-gradient(135deg, #b71c1c 0%, #9a0007 100%) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* Boutons d'édition */
+button[key*="edit_"] {
+    background-color: #ff9800 !important; /* Orange */
+}
+button[key*="edit_"]:hover {
+    background-color: #f57c00 !important;
+}
+
+/* Boutons de suppression */
+button[key*="delete"], button[key*="del_"] {
+  background: #ef5350 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 8px 16px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+button[key*="delete"]:hover, button[key*="del_"]:hover {
+  background: #d81b60 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* Boutons secondaires */
+button[kind="secondary"] {
+  background: #757575 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 10px 20px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+button[kind="secondary"]:hover {
+  background: #616161 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* Style des colonnes du formulaire */
+[data-testid="stForm"] [data-testid="column"] {
+  padding: 10px !important;
+  margin-bottom: 8px;
+}
+
+/* Style des messages de succès/erreur */
+[data-testid="stAlert"] {
+  border-radius: 8px !important;
+  border: 1px solid #415a77 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* NOUVEAU: Style des expanders bleu */
+[data-testid="stExpander"] {
+  background: #1b263b !important;
+  border: 1px solid #415a77 !important;
+  border-radius: 8px !important;
+  margin: 8px 0 !important;
+}
+
+[data-testid="stExpander"] > div:first-child {
+  background: #415a77 !important;
+  border-radius: 8px 8px 0 0 !important;
+  padding: 10px 14px;
+}
+
+/* Style des images */
+img {
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+}
+
+img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+}
+
+/* NOUVEAU: Style du file uploader bleu */
+[data-testid="stFileUploader"] {
+  background: #0d1b2a !important;
+  border: 2px dashed #415a77 !important;
+  border-radius: 8px !important;
+  padding: 16px !important;
+}
+
+[data-testid="stFileUploader"]:hover {
+  border-color: #d32f2f !important;
+  background: #1b263b !important;
+}
+
+/* NOUVEAU: Style de la page de connexion bleu */
+.login-page [data-testid="stForm"] {
+  width: 450px;
+  margin: 8vh auto 0 auto;
+  padding: 28px;
+  border-radius: 12px;
+  background: #1b263b;
+  border: 1px solid #415a77;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  color: #e0e0e0;
+}
+
+.login-page h1, .login-page h2, .login-page h3, .login-page p {
+  color: #e0e0e0 !important;
+}
+
+.login-page label p {
+  color: #bdbdbd !important;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.login-page input[type="text"], .login-page input[type="password"] {
+  background: #0d1b2a !important;
+  color: #e0e0e0 !important;
+  border-radius: 8px !important;
+  border: 1px solid #415a77 !important;
+  padding: 12px 16px !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+
+.login-page input[type="text"]:focus, .login-page input[type="password"]:focus {
+  border-color: #d32f2f !important;
+  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2) !important;
+  background: #1b263b !important;
+}
+
+.login-page button[kind="primary"] {
+  background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%) !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  padding: 12px 24px !important;
+  font-size: 16px !important;
+  margin-top: 16px !important;
+  width: 100% !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.login-page button[kind="primary"]:hover {
+  background: linear-gradient(135deg, #b71c1c 0%, #9a0007 100%) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.login-title {
+  text-align: center;
+  margin: 24px 0 20px 0;
+  color: #d32f2f;
+  font-weight: 800;
+  font-size: 28px;
+}
+
+/* NOUVEAU: Style des conteneurs de résultats de recherche bleu */
+.search-result-container {
+  background: #1b263b;
+  border: 1px solid #415a77;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-result-header {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.search-result-photo {
+  flex: 0 0 auto;
+  width: 100px;
+}
+
+.search-result-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Scrollbar personnalisée */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d1b2a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #415a77;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #778da9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #fixed-header {
+    height: 70px;
+    font-size: 16px;
+    padding: 0 16px;
+  }
+
+  [data-testid="stAppViewContainer"] {
+    padding-top: 85px;
+  }
+
+  [data-testid="stSidebar"] {
+    top: 70px;
+    height: calc(100vh - 70px);
+  }
+
+  .login-page [data-testid="stForm"] {
+    width: 95%;
+    margin-top: 4vh;
+    padding: 20px;
+  }
+
+  .login-title {
+    font-size: 24px;
+    margin: 20px 0 16px 0;
+  }
+
+  .step-indicator {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .step {
+    width: 100%;
+    justify-content: center;
+  }
+
+  [data-testid="stForm"] [data-testid="column"] {
+    width: 100% !important;
+    padding: 8px !important;
+  }
+
+  .search-result-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-result-photo {
+    width: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  #fixed-header {
+    height: 60px;
+    font-size: 14px;
+  }
+
+  [data-testid="stAppViewContainer"] {
+    padding-top: 75px;
+  }
+
+  .login-page [data-testid="stForm"] {
+    padding: 16px;
+  }
+}
