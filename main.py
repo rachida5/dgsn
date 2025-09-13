@@ -13,8 +13,6 @@ st.set_page_config(page_title="DGSN - Reconnaissance Faciale", page_icon="logo.p
 initialize_deepface()
 if cursor:
     setup_db()
-load_css()
-app_header()
 
 # Gestion de l'état "busy"
 if "busy" not in st.session_state:
@@ -48,4 +46,6 @@ if "authenticated" not in st.session_state:
 if not st.session_state["authenticated"]:
     login_page()
 else:
+    load_css()
+    app_header()
     main_page()
