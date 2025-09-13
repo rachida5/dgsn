@@ -7,120 +7,6 @@ from utils import initialize_deepface
 from ui import main_page, load_css, app_header
 
 
-def apply_brand_css() -> None:
-    """Injecte le bloc CSS de marque."""
-    st.markdown(
-        """
-        <style>
-        :root {
-            --brand-bg: #0d1b2a; /* à ajuster selon charte DGSN */
-            --brand-surface: #1b263b; /* à ajuster selon charte DGSN */
-            --brand-accent: #d32f2f; /* à ajuster selon charte DGSN */
-            --brand-border: rgba(255,255,255,0.1); /* à ajuster selon charte DGSN */
-            --brand-text: #ffffff; /* à ajuster selon charte DGSN */
-            --brand-muted: #8b949e; /* à ajuster selon charte DGSN */
-        }
-
-        html, body, [data-testid="stAppViewContainer"] {
-            background: var(--brand-bg);
-            color: var(--brand-text);
-        }
-        [data-testid="block-container"] {
-            max-width: 1000px;
-            padding-top: 0;
-            padding-bottom: 0;
-        }
-        .app-center {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-        .login-card {
-            background: var(--brand-surface);
-            border: 1px solid var(--brand-border);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 480px;
-            padding: 2.5rem 2rem;
-        }
-        .login-card img {
-            display: block;
-            margin: 0 auto 1.5rem auto;
-            height: auto;
-        }
-        .page-title {
-            position: relative;
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--brand-text);
-        }
-        .page-title::after {
-            content: "";
-            position: absolute;
-            bottom: -0.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 4px;
-            background: var(--brand-accent);
-            border-radius: 2px;
-        }
-        .muted { color: var(--brand-muted); }
-        .accent { color: var(--brand-accent); }
-        .danger { color: var(--brand-accent); }
-        .link-button button {
-            background: none;
-            border: none;
-            color: var(--brand-accent);
-            text-decoration: underline;
-            padding: 0;
-        }
-        .link-button button:hover {
-            color: var(--brand-text);
-            background: none;
-        }
-        .stTextInput>div>div>input {
-            color: var(--brand-text);
-        }
-        .stTextInput>div>div>input:focus {
-            border-color: var(--brand-accent);
-            box-shadow: 0 0 0 1px var(--brand-accent);
-        }
-        .stCheckbox>label {
-            color: var(--brand-text);
-        }
-        .stButton>button {
-            background: var(--brand-accent);
-            color: var(--brand-bg);
-            border-radius: 8px;
-            border: 1px solid var(--brand-border);
-        }
-        .stButton>button:hover:enabled {
-            filter: brightness(1.1);
-        }
-        .stButton>button:focus {
-            outline: 2px solid var(--brand-accent);
-            outline-offset: 2px;
-        }
-        .stButton>button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        @media (max-width: 600px) {
-            .login-card {
-                padding: 2rem 1rem;
-                max-width: 90%;
-            }
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-
-
 def validate_credentials(username: str, password: str) -> bool:
     """Vérifie les identifiants via la base de données."""
     user = authenticate_user(cursor, username, password)
@@ -142,9 +28,8 @@ def _lockout_remaining() -> int:
 
 def build_login_page() -> None:
     _init_session_state()
-    st.markdown("<div class='app-center'><div class='login-card'>", unsafe_allow_html=True)
     st.image("logo.png", width=96)
-    st.markdown("<h1 class='page-title'>Connexion</h1>", unsafe_allow_html=True)
+    st.title("Connexion")
 
     locked = time() < st.session_state["lockout_until"]
     username_default = st.session_state.get("remembered_username", "")
@@ -173,9 +58,7 @@ def build_login_page() -> None:
             disabled=locked or not username or not password,
         )
 
-    st.markdown("<div class='link-button' style='text-align:right'>", unsafe_allow_html=True)
     forgot_clicked = st.button("Mot de passe oublié ?")
-    st.markdown("</div>", unsafe_allow_html=True)
 
     if forgot_clicked:
         st.info("Veuillez contacter l'administrateur pour réinitialiser votre mot de passe.")
@@ -214,7 +97,6 @@ def build_login_page() -> None:
                 st.session_state["lockout_until"] = time() + 60
                 st.warning("Trop de tentatives. Bouton désactivé 60s.")
 
-    st.markdown("</div></div>", unsafe_allow_html=True)
 
 st.set_page_config(
     page_title="DGSN - Reconnaissance Faciale",
@@ -234,5 +116,4 @@ if st.session_state["authenticated"]:
     app_header()
     main_page()
 else:
-    apply_brand_css()
     build_login_page()
